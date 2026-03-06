@@ -33,8 +33,8 @@ G1_CFG = G1_29DOF_TORSOBASE_POPSICLE_CFG
 # Motion configuration
 MOTION_NAME = "LafanKungfu1"
 _hacked_selected_file_ = "fightAndSports1_subject1_retargetted.npz"
-MOTION_NAME = "LafanSprint1"
-_hacked_selected_file_ = "sprint1_subject2_retargetted.npz"
+MOTION_NAME = "HikingParkour1"
+_hacked_selected_file_ = "parkour_motion_without_run_retargetted.npz"
 
 with open(f"/tmp/{MOTION_NAME}.yaml", "w") as f:
     yaml.dump(
@@ -51,7 +51,7 @@ with open(f"/tmp/{MOTION_NAME}.yaml", "w") as f:
 class AmassMotionCfg(AmassMotionCfgBase):
     """AMASS motion configuration for BeyondMimic."""
 
-    path = os.path.expanduser("~/Datasets/UbisoftLAFAN1_GMR_g1_29dof_torsoBase_retargetted_instinctnpz")
+    path = os.path.expanduser("/home/ubuntu/instinctlab/hiking-in-the-wild_Data&Model/data&model/parkour_motion_reference")
     retargetting_func = None
     filtered_motion_selection_filepath = f"/tmp/{MOTION_NAME}.yaml"
     motion_start_from_middle_range = [0.0, 0.8]
@@ -104,7 +104,8 @@ class G1BeyondMimicPlaneEnvCfg(beyondmimic_cfg.BeyondMimicEnvCfg):
     """G1 BeyondMimic plane environment configuration."""
 
     scene: beyondmimic_cfg.BeyondMimicSceneCfg = beyondmimic_cfg.BeyondMimicSceneCfg(
-        num_envs=4096,
+        #num_envs=4096,
+        num_envs=1024,
         robot=G1_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot"),
         motion_reference=motion_reference_cfg,
     )

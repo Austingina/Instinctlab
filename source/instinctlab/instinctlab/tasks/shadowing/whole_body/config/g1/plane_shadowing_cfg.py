@@ -167,6 +167,12 @@ _hacked_selected_files_ = [
 #     "fallAndGetUp2_subject3_retargetted.npz",
 # ]
 
+MOTION_NAME = "HikingWholeBody1"
+_path_ = "/home/ubuntu/instinctlab/hiking-in-the-wild_Data&Model/data&model/parkour_motion_reference"
+_hacked_selected_files_ = [
+    "parkour_motion_without_run_retargetted.npz",
+]
+
 with open(f"/tmp/{MOTION_NAME}.yaml", "w") as f:
     yaml.dump(
         {
@@ -182,10 +188,11 @@ class AmassMotionCfg(AmassMotionCfgBase):
     # path = os.path.expanduser("~/Datasets/AMASS_SMPLX-NG_GMR_29dof_g1_torsoBase_retargetted_20250825_instinctnpz")
     # path = os.path.expanduser("~/Datasets/UbisoftLAFAN1_GMR_g1_29dof_torsoBase_retargetted_instinctnpz")
     # path = os.path.expanduser("~/Datasets/AMASS_SMPLX-NG_GMR_29dof_g1_torsoBase_retargetted_20250901_instinctnpz")
-    # path = _path_
-    path = os.path.expanduser("~/Datasets/NoKov-Marslab-Motions-instinctnpz/20251016_diveroll4_single")
+    path = _path_
+    #path = os.path.expanduser("/home/ubuntu/instinctlab/hiking-in-the-wild_Data&Model/data&model/parkour_motion_reference")
     retargetting_func = None
-    filtered_motion_selection_filepath = None
+    #filtered_motion_selection_filepath = None
+    filtered_motion_selection_filepath = f"/tmp/{MOTION_NAME}.yaml"
     motion_start_from_middle_range = [0.0, 0.8]
     motion_start_height_offset = 0.0
     ensure_link_below_zero_ground = False
@@ -278,7 +285,8 @@ motion_reference_cfg = MotionReferenceManagerCfg(
 @configclass
 class G1PlaneShadowingEnvCfg(shadowing_cfg.ShadowingEnvCfg):
     scene: shadowing_cfg.ShadowingSceneCfg = shadowing_cfg.ShadowingSceneCfg(
-        num_envs=4096,
+        #num_envs=4096,
+        num_envs=1024,
         robot=G1_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot"),
         motion_reference=motion_reference_cfg,
     )
